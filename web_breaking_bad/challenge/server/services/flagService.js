@@ -1,4 +1,4 @@
-import { getBalancesForUser } from '../services/coinService.js';
+import { getBalancesForUser } from './coinService.js';
 import fs from 'fs/promises';
 
 const FINANCIAL_CONTROLLER_EMAIL = "financial-controller@frontier-board.htb";

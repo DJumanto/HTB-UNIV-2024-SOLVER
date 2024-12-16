@@ -1,6 +1,6 @@
 import { createUser } from './userService.js';
 import { hsetObject, rpushList } from '../utils/redisUtils.js';
-import { getAllCoins } from '../services/coinService.js';
+import { getAllCoins } from './coinService.js';
 import crypto from 'crypto';
 
 const FINANCIAL_CONTROLLER_EMAIL = 'financial-controller@frontier-board.htb';

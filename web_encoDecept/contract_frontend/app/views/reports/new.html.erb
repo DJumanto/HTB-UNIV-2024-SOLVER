@@ -1,0 +1,71 @@
+<link rel='stylesheet' href='https://unpkg.com/augmented-ui@2.0.0/augmented-ui.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.35.0/codemirror.css'>
+<link rel='stylesheet'
+   href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/addon/scroll/simplescrollbars.min.css'>
+<link rel="stylesheet" href="/static/css/login.css">
+<style>
+
+  .showMessage {
+  position: fixed;
+  bottom: 0;
+  }
+  .form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  }
+  .form-group label {
+  margin-bottom: 5px;
+  font-size: 1.1em;
+  color: #AD49E2;
+  }
+  .editable-field {
+  border: 2px solid #AD49E2;
+  padding: 10px;
+  border-radius: 6px;
+  width: 100%;
+  }
+  input[type="text"], textarea {
+  background: transparent;
+  border: none;
+  color: #FFFFFF;
+  width: 100%;
+  outline: none;
+  font-size: 1em;
+  }
+</style>
+
+<code class="code-container" style="height: 98vh; width: 98vw;">
+  <div class="glow-container">
+    <div class="augs" style="width: calc(100% - var(--glow-margin-new) * 2); height: calc(100% - var(--glow-margin-new) * 2);" data-augmented-ui></div>
+  </div>
+  <section class="augs bg" style="width: calc(100% - var(--glow-margin-new) * 2); height: calc(100% - var(--glow-margin-new) * 2);" data-augmented-ui>
+    <!-- Navigation Buttons -->
+    <%= render 'shared/navbar' %>
+
+    <!-- Contract Settings Form -->
+    <div class="contract-details" style="display: flex; flex-direction: column; align-items: center; justify-content: center; color: #FFFFFF; text-align: center; padding: 20px;height:90%;">
+      <div style="padding: 25px; border-radius: 10px; width: 100%; height: 100%;">
+      <%= form_with url: report_path, method: :post do %>
+        <div class="form-group">
+          <label for="contract_url">Contract URL</label>
+          <div class="editable-field">
+            <%= text_field_tag :contract_url %>
+          </div>
+      
+          <%= submit_tag "Report", style: "margin-top: 10px; padding: 10px 30px; font-size: 1.2rem; color: #FFFFFF; background-color: transparent; border: 2px solid #AD49E2; border-radius: 8px; cursor: pointer; box-shadow: 0 0 10px #AD49E2;" %>
+        </div>
+      <% end %>
+      
+      </div>
+
+      <!-- Flash Messages -->
+      <% if flash[:notice] %>
+        <div class="showMessage"><%= flash[:notice] %></div>
+      <% elsif flash[:alert] %>
+        <div class="showMessage"><%= flash[:alert] %></div>
+      <% end %>
+    </div>
+  </section>
+</code>

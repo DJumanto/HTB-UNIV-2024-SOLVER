@@ -1,0 +1,56 @@
+<!-- app/views/contract_templates/show.html.erb -->
+
+<link rel='stylesheet' href='https://unpkg.com/augmented-ui@2.0.0/augmented-ui.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.35.0/codemirror.css'>
+<link rel='stylesheet'
+   href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/addon/scroll/simplescrollbars.min.css'>
+<link rel="stylesheet" href="/static/css/login.css">
+<style>
+button {
+  color: #FFFFFF;
+  background-color: transparent;
+  border: 2px solid #AD49E2;
+  border-radius: 8px; cursor:
+  pointer;
+  width: unset;
+  margin: 8px;
+}
+
+strong {
+  font-weight: 600;
+}
+</style>
+<!-- partial:index.partial.html -->
+<code class="code-container" style="height: 98vh; width: 98vw;">
+   <div class="glow-container">
+      <div class="augs" style="width: calc(100% - var(--glow-margin-new) * 2); height: calc(100% - var(--glow-margin-new) * 2);" data-augmented-ui></div>
+   </div>
+   <section class="augs bg" style="width: calc(100% - var(--glow-margin-new) * 2); height: calc(100% - var(--glow-margin-new) * 2);" data-augmented-ui>
+      <%= render 'shared/navbar' %>
+
+      <div class="contract-details" style="display: flex; flex-direction: column; align-items: center; justify-content: center; color: #FFFFFF; text-align: center; padding: 20px;">
+      <div style="padding: 25px; border-radius: 10px; width: 100%; border: 2px solid #AD49E2;">
+      <h1><strong>Name:</strong> <%= @template["name"] %></h1>
+      <p><strong>Description:</strong> <%= @template["description"] %></p>
+      <p><strong>Content:</strong> <%= @template["data"] %></p>
+      <p><strong>Created At:</strong> <%= @template["created_at"] %></p>
+      <div style="margin-top: 40px;">
+        <%= link_to 'Edit', edit_contract_template_path(@template["id"]), style: 'color: #FFFFFF; background-color: transparent; border: 2px solid #AD49E2; border-radius: 8px; cursor: pointer; width: unset; margin: 8px; padding: 10px; text-decoration: none;' %>
+        <%= link_to 'Back to Templates', contract_templates_path, style: 'color: #FFFFFF; background-color: transparent; border: 2px solid #AD49E2; border-radius: 8px; cursor: pointer; width: unset; margin: 8px; padding: 10px; text-decoration: none;' %>
+      
+      </div>
+        
+      </div>
+      
+    
+    </div>
+   </section>
+</code>
+<!-- partial -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/codemirror.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/javascript/javascript.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/css/css.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/addon/scroll/simplescrollbars.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/markdown/markdown.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/htmlmixed/htmlmixed.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/xml/xml.js'></script>

@@ -1,0 +1,136 @@
+.container-fluid {
+    display: flex;
+    justify-content: space-evenly;
+    /* padding: 20px; */
+    height: 90vh;
+}
+
+.left-pane,
+.right-pane {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 10px;
+    color: white; /* Keep text white or light gray for readability */
+    width: 48%;
+}
+
+.left-pane {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.criminal-image {
+    width: 400px;
+    height: 400px;
+    margin-bottom: 20px;
+    background-color: #252323;
+    border: 2px solid #69a1a7;
+}
+
+.criminal-info {
+    margin-top: 10px;
+}
+
+.criminal-info h2 {
+    margin-bottom: 10px;
+}
+
+.reward {
+    background-color: #ff8000;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #000;
+    font-size: 1.2em;
+    margin-top: 10px;
+}
+
+.highlight {
+    color: #ff8000;
+}
+
+.right-pane h3 {
+    margin-bottom: 15px;
+}
+
+.right-pane p {
+    margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+    .container-fluid {
+        flex-direction: column;
+    }
+
+    .left-pane,
+    .right-pane {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+.criminal-image {
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+.criminal-info {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #282c34;
+    border-radius: 10px;
+    color: white;
+}
+
+.criminal-info h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.reward {
+    font-weight: bold;
+    font-size: 1.5em;
+    color: #ffd700;
+}
+
+.right-pane {
+    margin-top: 20px;
+}
+
+.highlight {
+    color: #ffd700;
+}
+
+.card {
+    background-color: #343a40;
+    border: none;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.card-body {
+    color: white;
+}
+
+.card-title {
+    font-size: 1.5em;
+}
+
+.card-text {
+    font-size: 1.2em;
+}
+
+.section-header {
+    font-size: 1.3em;
+    color: #00bfff;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.btn-outline-warning {
+    color: #ffd700;
+    border-color: #ffd700;
+}

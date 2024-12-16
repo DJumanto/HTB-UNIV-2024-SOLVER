@@ -1,0 +1,117 @@
+<link rel='stylesheet' href='https://unpkg.com/augmented-ui@2.0.0/augmented-ui.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.35.0/codemirror.css'>
+<link rel='stylesheet'
+   href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/addon/scroll/simplescrollbars.min.css'>
+<link rel="stylesheet" href="/static/css/login.css">
+<style>
+.contract-management {
+  padding: 20px;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+input, select {
+  padding: 5px;
+  margin-left: 4px;
+  border-radius: 4px;
+}
+
+.filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px;
+  border: 2px solid #AD49E2;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.btn-filter {
+  color: #FFFFFF;
+  background-color: transparent;
+  border: 2px solid #AD49E2;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 8px 16px;
+}
+
+.contract-card {
+  border: 2px solid #AD49E2;
+  padding: 15px;
+  border-radius: 8px;
+  color: #FFFFFF;
+  box-shadow: 0 0 10px #AD49E2;
+}
+
+</style>
+
+<code class="code-container" style="height: 98vh; width: 98vw;">
+   <div class="glow-container">
+      <div class="augs" style="width: calc(100% - var(--glow-margin-new) * 2); height: calc(100% - var(--glow-margin-new) * 2);" data-augmented-ui></div>
+   </div>
+   <section class="augs bg" style="width: calc(100% - var(--glow-margin-new) * 2); height: calc(100% - var(--glow-margin-new) * 2);" data-augmented-ui>
+      <%= render 'shared/navbar' %>
+      <div class="contract-management">
+        
+        <%= form_with url: manage_contracts_path, method: :get, id: 'filterForm', local: true do %>
+          <div class="filter-group">
+            <div style="display: flex;align-items: center;">
+              <%= label_tag :title, "Title: " %>
+              <%= text_field_tag :title__contains, params[:title__contains], placeholder: "Enter title" %>
+            </div>
+          
+            <div style="display: flex;align-items: center;">
+              <%= label_tag :status, "Status: " %>
+              <%= select_tag :status, options_for_select([['All', ''], 'approved', 'pending', 'draft'], params[:status]), include_blank: true %>
+            </div>
+          
+            <div style="display: flex;align-items: center;">
+              <%= label_tag :start_date, "Start Date: " %>
+              <%= date_field_tag :start_date, params[:start_date] %>
+            </div>
+          
+            <div style="display: flex;align-items: center;">
+              <%= label_tag :end_date, "End Date: " %>
+              <%= date_field_tag :end_date, params[:end_date] %>
+            </div>
+          
+            <div>
+              <%= submit_tag 'Apply Filters', name: nil, style: "padding: 7px;background: transparent;border-radius: 8px;color: white;" %>
+            </div>
+          </div>
+        <% end %>
+      
+      </div>
+      <div class="grid-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; padding:20px;">
+        <% if @contracts.present? %>
+          <% @contracts.each do |contract| %>
+         <a href="<%= contract_path(contract['id']) %>" style="text-decoration: none;">
+            <div style="text-align: center;">
+               <!-- Image -->
+               <img src="/static/images/fo.png" style="width: 50%; height: auto;" />
+               <!-- Centered Text Below Image -->
+               <div style="color: white; font-weight: bold; margin-top: 10px;">
+                  <%= contract['title'] %>
+               </div>
+            </div>
+         </a>
+         <% end %>
+         
+        <% else %>
+          <div style="display: flex; justify-content: center; color: white;width:100vw;">
+          <p>No contracts found based on the current filter.</p>
+          </div>
+        <% end %>
+      </div>
+   </section>
+</code>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/codemirror.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/javascript/javascript.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/css/css.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/addon/scroll/simplescrollbars.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/markdown/markdown.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/htmlmixed/htmlmixed.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/xml/xml.js'></script>

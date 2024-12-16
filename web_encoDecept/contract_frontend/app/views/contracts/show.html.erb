@@ -1,0 +1,47 @@
+<link rel='stylesheet' href='https://unpkg.com/augmented-ui@2.0.0/augmented-ui.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.35.0/codemirror.css'>
+<link rel='stylesheet'
+   href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/addon/scroll/simplescrollbars.min.css'>
+<link rel="stylesheet" href="/static/css/login.css">
+<style>
+strong {
+  font-weight: 600;
+}
+</style>
+<!-- partial:index.partial.html -->
+<code class="code-container" style="height: 98vh; width: 98vw;">
+   <div class="glow-container">
+      <div class="augs" style="width: calc(100% - var(--glow-margin-new) * 2); height: calc(100% - var(--glow-margin-new) * 2);" data-augmented-ui></div>
+   </div>
+   <section class="augs bg" style="width: calc(100% - var(--glow-margin-new) * 2); height: calc(100% - var(--glow-margin-new) * 2);" data-augmented-ui>
+      <%= render 'shared/navbar' %>
+
+      <div class="contract-details" style="display: flex; flex-direction: column; align-items: center; justify-content: center; color: #FFFFFF; text-align: center; padding: 20px;">
+      <div style="padding: 25px; border-radius: 10px; width: 100%; border: 2px solid #AD49E2;">
+        <p style="margin: 10px 0;"><strong>Title:</strong> <%= @contract['title'] %></p>
+        <p style="margin: 10px 0;"><strong>Description:</strong> <%= @contract['description'] %></p>
+        <p style="margin: 10px 0;"><strong>Owner:</strong> <%= @contract['owner'] %></p>
+        <p style="margin: 10px 0;"><strong>Status:</strong> <%= @contract['status'].capitalize %></p>
+        <p style="margin: 10px 0;"><strong>Start Date:</strong> <%= @contract['start_date'] %></p>
+        <p style="margin: 10px 0;"><strong>End Date:</strong> <%= @contract['end_date'] || 'N/A' %></p>
+        <p style="margin: 10px 0;"><strong>Amount:</strong> $<%= @contract['amount'] %></p>
+        <p style="margin: 10px 0;"><strong>Terms:</strong> <%= @contract['terms'] %></p>
+        
+        <% if @contract['attachments'] %>
+          <p style="margin: 10px 0;"><strong>Attachments:</strong> <a href="<%= @contract['attachments'].url %>" target="_blank" style="color: #00FF99; text-decoration: underline;">View Document</a></p>
+        <% end %>
+        
+      </div>
+      
+    
+    </div>
+   </section>
+</code>
+<!-- partial -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/codemirror.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/javascript/javascript.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/css/css.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/addon/scroll/simplescrollbars.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/markdown/markdown.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/htmlmixed/htmlmixed.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/xml/xml.js'></script>

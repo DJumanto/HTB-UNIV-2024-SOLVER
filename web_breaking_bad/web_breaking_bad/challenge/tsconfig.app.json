@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "module": "ESNext",
+    "target": "ES2017",
+    "jsx": "preserve",
+    "strict": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
+}

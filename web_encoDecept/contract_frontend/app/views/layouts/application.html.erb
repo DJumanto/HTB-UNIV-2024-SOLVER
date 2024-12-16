@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Contract Frontend" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <%= yield :head %>
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+<style>
+.showMessage {
+  position: fixed;
+  color: white;
+  padding: 20px;
+  font-size: 19px;
+  text-align: center;
+  align-content: center;
+  width: 100%;
+}
+</style>
+  <body>
+  <!-- In app/views/layouts/application.html.erb -->
+
+<% if flash[:notice] %>
+    <div class="showMessage"><%= flash[:notice] %></div>
+<% elsif flash[:alert] %>
+    <div class="showMessage"><%= flash[:alert] %></div>
+<% end %>
+
+  <% flash.each do |key, message| %>
+    
+  <% end %>
+    <%= yield %>
+  </body>
+</html>

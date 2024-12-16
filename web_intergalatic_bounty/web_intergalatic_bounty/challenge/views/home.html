@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Bounty Board</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/home.css">
+    <link rel="stylesheet" href="/static/css/star.css">
+    <link rel="shortcut icon" href="/static/images/logo.webp" />
+</head>
+
+<body>
+    <div id='stars'></div>
+    <div id='stars2'></div>
+    <div id='stars3'></div>
+    <nav class="navbar navbar-expand-lg">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/home">Home</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/add-bounty">Place Bounty</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                <!-- Admin Links -->
+                {% if user.role == "admin" %}
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/transmit">Transmit Stellar Inquiry</a>
+                    </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid mt-5 overflow-hidden h-100">
+        <div id="cardContainer" class="row" style="padding-bottom: 50px;">
+        </div>
+    </div>
+
+    <script>
+        async function fetchBounties() {
+            try {
+                const response = await fetch('/api/bounties');
+                const bounties = await response.json();
+
+                const cardContainer = document.getElementById('cardContainer');
+                cardContainer.innerHTML = '';
+
+                bounties.forEach(bounty => {
+                    const bountyCard = `
+                        <div class="col-md-4 mb-4">
+                            <div class="wrapper">
+                                <div class="clash-card barbarian">
+                                    <div class="clash-card__image clash-card__image--barbarian">
+                                        <img src="${bounty.image || '/static/images/default.png'}" alt="${bounty.target_name}">
+                                    </div>
+                                    <div class="clash-card__level clash-card__level--barbarian ${bounty.risk_level}">
+                                        Risk Level: ${bounty.risk_level}
+                                    </div>
+                                    <div class="clash-card__unit-name">${bounty.target_name}</div>
+                                    <div class="clash-card__unit-description">
+                                        <b>Alias</b>: ${bounty.target_aliases || 'No known alias'}<br>
+                                        <b>Species</b>: ${bounty.target_species || 'Unknown'}<br>
+                                        <b>Location</b>: ${bounty.last_known_location || 'Unknown'}, ${bounty.galaxy || 'Unknown'}<br>
+                                        <b>Reward</b>: ${bounty.reward_credits || '0'} credits<br>
+                                    </div>
+                                    <a style="text-decoration: none !important;" href="/bounty/${bounty.id}">
+                                        <div class="clash-card__unit-stats clash-card__unit-stats--barbarian clearfix">
+                                            View
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    cardContainer.innerHTML += bountyCard;
+                });
+            } catch (error) {
+                console.error('Error fetching bounties:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchBounties);
+    </script>
+
+</body>
+
+</html>

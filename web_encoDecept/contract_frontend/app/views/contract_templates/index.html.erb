@@ -1,0 +1,76 @@
+<!-- app/views/contract_templates/index.html.erb -->
+
+<link rel='stylesheet' href='https://unpkg.com/augmented-ui@2.0.0/augmented-ui.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.35.0/codemirror.css'>
+<link rel='stylesheet'
+   href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/addon/scroll/simplescrollbars.min.css'>
+<link rel="stylesheet" href="/static/css/login.css">
+<style>
+button {
+  color: #FFFFFF;
+  background-color: transparent;
+  border: 2px solid #AD49E2;
+  border-radius: 8px;
+  cursor: pointer;
+  width: unset;
+  margin: 8px;
+}
+</style>
+
+<code class="code-container" style="height: 98vh; width: 98vw;">
+   <div class="glow-container">
+      <div class="augs" style="width: calc(100% - var(--glow-margin-new) * 2); height: calc(100% - var(--glow-margin-new) * 2);" data-augmented-ui></div>
+   </div>
+   <section class="augs bg" style="width: calc(100% - var(--glow-margin-new) * 2); height: calc(100% - var(--glow-margin-new) * 2);" data-augmented-ui>
+  <%= render 'shared/navbar' %>
+
+  <div class="grid-container" style="display: grid; padding: 20px;">
+    <%= link_to 'New Template', new_contract_template_path, style: "color: text; border: 2px solid #ad49e2; padding: 10px; width: 9%; border-radius: 4px; color: white; text-decoration: none;text-align: center;" %>
+
+    <% if @contract_templates.any? %>
+      <table class="table" style="width: 100%; margin-top: 20px; color: #FFFFFF; border-collapse: collapse;">
+        <thead>
+          <tr style="border-bottom: 2px solid #AD49E2;">
+            <th style="padding: 10px; text-align: left;">Name</th>
+            <th style="padding: 10px; text-align: left;">Description</th>
+            <th style="padding: 10px; text-align: left;">Created By</th>
+            <th style="padding: 10px; text-align: left;">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @contract_templates.each do |template| %>
+            <tr style="border-bottom: 1px solid #AD49E2;">
+              <td style="padding: 10px;">
+                <%= link_to template["name"], contract_template_path(template["id"]), style: 'color: white;' %>
+              </td>
+              <td style="padding: 10px;"><%= template["description"] %></td>
+              <td style="padding: 10px;"><%= template["user"] %></td>
+              <td style="padding: 10px; display: flex;">
+                <%= link_to 'View', contract_template_path(template["id"]), 
+                    style: 'color: #FFFFFF; background-color: transparent; border: 2px solid #AD49E2; border-radius: 8px; cursor: pointer; width: unset; margin: 8px; padding: 10px; text-decoration: none;' %>
+                <%= link_to 'Edit', edit_contract_template_path(template["id"]), 
+                    style: 'color: #FFFFFF; background-color: transparent; border: 2px solid #AD49E2; border-radius: 8px; cursor: pointer; width: unset; margin: 8px; padding: 10px; text-decoration: none;' %>
+                <%= button_to 'Delete', contract_template_path(template["id"]), 
+                    method: :delete, data: { confirm: 'Are you sure?' }, 
+                    style: 'color: #FFFFFF; border: 2px solid #AD49E2; border-radius: 8px; cursor: pointer; margin: 8px; padding: 10px; text-decoration: none;' %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <div style="color: #FFFFFF; text-align: center; margin-top: 20px;">
+        <p>No contract templates available. Click the "New Template" button to create one!</p>
+      </div>
+    <% end %>
+  </div>
+</section>
+</code>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/codemirror.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/javascript/javascript.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/css/css.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/addon/scroll/simplescrollbars.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/markdown/markdown.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/htmlmixed/htmlmixed.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/xml/xml.js'></script>

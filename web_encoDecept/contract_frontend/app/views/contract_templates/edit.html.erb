@@ -1,0 +1,84 @@
+<link rel='stylesheet' href='https://unpkg.com/augmented-ui@2.0.0/augmented-ui.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.35.0/codemirror.css'>
+<link rel='stylesheet'
+   href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/addon/scroll/simplescrollbars.min.css'>
+<link rel="stylesheet" href="/static/css/login.css">
+<style>
+  button {
+    color: #FFFFFF;
+    background-color: transparent;
+    border: 2px solid #AD49E2;
+    border-radius: 8px; cursor:
+    pointer;
+    width: unset;
+    margin: 8px;
+  }
+
+  .showMessage {
+  position: fixed;
+  bottom: 0;
+  }
+  .form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  }
+  .form-group label {
+    margin-bottom: 5px;
+    font-size: 1.1em;
+    color: #AD49E2;
+  }
+  .editable-field {
+    border: 2px solid #AD49E2;
+    padding: 10px;
+    border-radius: 6px;
+    width: 100%;
+  }
+  input, textarea{
+    background: transparent;
+    border: 2px solid #AD49E2 !important;
+    color: white !important;
+    width: 100%;
+    outline: none;
+    font-size: 1em;
+    border-radius: 6px;
+  }
+
+</style>
+
+<code class="code-container" style="height: 98vh; width: 98vw;">
+   <div class="glow-container">
+      <div class="augs" style="width: calc(100% - var(--glow-margin-new) * 2); height: calc(100% - var(--glow-margin-new) * 2);" data-augmented-ui></div>
+   </div>
+   <section class="augs bg" style="width: calc(100% - var(--glow-margin-new) * 2); height: calc(100% - var(--glow-margin-new) * 2);" data-augmented-ui>
+  <%= render 'shared/navbar' %>
+
+  <div class="grid-container" style="display: grid; padding: 20px;">
+  <%= form_with url: contract_template_path(@contract_template["id"]), method: :patch do |f| %>
+    <div class="form-group">
+      <%= f.label :name, "Template Name" %>
+      <%= f.text_field :name, value: @contract_template["name"], class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :description, "Description" %>
+      <%= f.text_area :description, value: @contract_template["description"], class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :content, "Content" %>
+      <%= f.text_area :content, value: @contract_template["data"], class: "form-control" %>
+    </div>
+    <%= f.submit "Update Template", class: "btn btn-primary", style: "margin-top: 30px; padding: 10px 30px; font-size: 1.2rem; color: #FFFFFF; background-color: transparent; border: 2px solid #AD49E2 !important; border-radius: 8px; cursor: pointer; box-shadow: 0 0 10px #AD49E2;" %>
+  <% end %>
+  </div>
+</section>
+
+</code>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/codemirror.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/javascript/javascript.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/css/css.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/addon/scroll/simplescrollbars.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/markdown/markdown.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/htmlmixed/htmlmixed.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/xml/xml.js'></script>

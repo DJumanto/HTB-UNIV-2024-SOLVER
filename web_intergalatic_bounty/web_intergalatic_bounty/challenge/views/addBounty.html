@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <title>GBB</title>
+        <link rel="stylesheet" href="/static/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/static/css/home.css" />
+        <link rel="stylesheet" href="/static/css/star.css" />
+        <link rel="shortcut icon" href="/static/images/logo.webp" />
+        <style>
+            .container-fluid {
+                max-height: 95vh; /* Limits the height */
+                overflow-y: auto; /* Makes the container scrollable */
+                padding: 10px;
+            }
+
+            .form-group {
+                margin-bottom: 8px; /* Reduce space between form groups */
+            }
+
+            .form-control {
+                height: auto; /* Allow auto height adjustment for inputs */
+                padding: 5px; /* Reduce padding inside inputs */
+            }
+
+            .btn {
+                padding: 8px 12px; /* Reduce button padding */
+            }
+
+            textarea {
+                min-height: 50px; /* Adjust as needed */
+            }
+
+            * {
+                color: white;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
+        <nav class="navbar navbar-expand-lg">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/add-bounty">Place Bounty</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav ms-auto">
+                    {% if user.username == "admin" %}
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/transmit"
+                            >Transmit Stellar Inquiry</a
+                        >
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container-fluid" style="overflow: hidden">
+            <h2 class="mb-3">Submit Bounty Application</h2>
+
+            <form id="bountyForm">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="target_name">Target Name</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="target_name"
+                            name="target_name"
+                            required
+                        />
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="target_aliases">Target Aliases</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="target_aliases"
+                            name="target_aliases"
+                            required
+                        />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="target_species">Target Species</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="target_species"
+                            name="target_species"
+                            required
+                        />
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="last_known_location"
+                            >Last Known Location</label
+                        >
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="last_known_location"
+                            name="last_known_location"
+                            required
+                        />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="galaxy">Galaxy</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="galaxy"
+                            name="galaxy"
+                            required
+                        />
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="star_system">Star System</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="star_system"
+                            name="star_system"
+                            required
+                        />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="planet">Planet</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="planet"
+                            name="planet"
+                            required
+                        />
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="coordinates">Coordinates</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="coordinates"
+                            name="coordinates"
+                            required
+                        />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="reward_credits">Reward (Credits)</label>
+                        <input
+                            type="number"
+                            class="form-control"
+                            id="reward_credits"
+                            name="reward_credits"
+                            required
+                        />
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="reward_items">Reward Items</label>
+                        <textarea
+                            class="form-control"
+                            id="reward_items"
+                            name="reward_items"
+                            rows="2"
+                        ></textarea>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="issuer_name">Issuer Name</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="issuer_name"
+                            name="issuer_name"
+                            required
+                        />
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="issuer_faction">Issuer Faction</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="issuer_faction"
+                            name="issuer_faction"
+                            required
+                        />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="risk_level">Risk Level</label>
+                        <select
+                            class="form-control"
+                            id="risk_level"
+                            name="risk_level"
+                            required
+                        >
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="image">Image URL</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="image"
+                            name="image"
+                        />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea
+                        class="form-control"
+                        id="description"
+                        name="description"
+                        rows="3"
+                    ></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-3">
+                    Submit Bounty
+                </button>
+            </form>
+
+            <div id="message" class="mt-3"></div>
+        </div>
+
+        <script src="/static/js/bootstrap.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                document
+                    .getElementById("bountyForm")
+                    .addEventListener("submit", function (event) {
+                        event.preventDefault();
+
+                        const bountyData = {
+                            target_name:
+                                document.getElementById("target_name").value,
+                            target_aliases:
+                                document.getElementById("target_aliases").value,
+                            target_species:
+                                document.getElementById("target_species").value,
+                            last_known_location: document.getElementById(
+                                "last_known_location",
+                            ).value,
+                            galaxy: document.getElementById("galaxy").value,
+                            star_system:
+                                document.getElementById("star_system").value,
+                            planet: document.getElementById("planet").value,
+                            coordinates:
+                                document.getElementById("coordinates").value,
+                            reward_credits:
+                                document.getElementById("reward_credits").value,
+                            reward_items:
+                                document.getElementById("reward_items").value,
+                            issuer_name:
+                                document.getElementById("issuer_name").value,
+                            issuer_faction:
+                                document.getElementById("issuer_faction").value,
+                            risk_level:
+                                document.getElementById("risk_level").value,
+                            image: document.getElementById("image").value,
+                            description:
+                                document.getElementById("description").value,
+                        };
+
+                        fetch("/api/bounties", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify(bountyData),
+                        })
+                            .then((response) => {
+                                if (!response.ok) {
+                                    throw new Error(
+                                        "Error placing bounty: " +
+                                            response.statusText,
+                                    );
+                                }
+                                return response.json();
+                            })
+                            .then((data) => {
+                                document.getElementById("message").innerHTML =
+                                    '<div class="alert alert-success">Bounty placed successfully!</div>';
+                                document.getElementById("bountyForm").reset();
+                            })
+                            .catch((error) => {
+                                document.getElementById("message").innerHTML =
+                                    '<div class="alert alert-danger">' +
+                                    error.message +
+                                    "</div>";
+                            });
+                    });
+            });
+        </script>
+    </body>
+</html>

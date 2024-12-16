@@ -1,0 +1,28 @@
+<style>
+button {
+  padding: 5px;
+  color: #FFFFFF;
+  background-color: transparent;
+  border: 2px solid #AD49E2;
+  border-radius: 8px; cursor:
+  pointer;
+  width: unset;
+  margin: 8px;
+}
+</style>
+<button class="dots" onclick="changeMode(this)" title="(click to change) Current Mode: css"></button>
+<div style="display: flex;justify-content: end;margin-right: 5%;">
+    <a href="/"><button>Home</button></a>
+    <a href="/contracts/new"><button>Create Contract</button></a>
+    <% if current_user && ['contract_manager', 'administrator'].include?(current_user['role']) %>
+        <a href="/contracts/manage"><button>Manage Contracts</button></a>
+    <% end %>
+
+    <% if current_user && ['administrator'].include?(current_user['role']) %>
+        <a href="/contract_templates/"><button>Manage Templates</button></a>
+    <% end %>
+    <a href="/settings"><button>Settings</button></a>
+    <a href="/report"><button>Report Contract</button></a>
+    
+    <a href="/logout"><button>Logout</button></a>
+</div>

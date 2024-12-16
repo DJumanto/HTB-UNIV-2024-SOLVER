@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "module": "CommonJS",
+    "target": "ES2017",
+    "strict": true,
+    "allowJs": true, // Enable processing of JavaScript files
+    "checkJs": false // Optional: Disable type checking for .js files
+  },
+  "include": ["server/**/*.js"], // Include all .js files in server folder
+  "exclude": ["node_modules"] // Exclude node_modules
+}

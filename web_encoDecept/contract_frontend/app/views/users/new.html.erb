@@ -1,0 +1,58 @@
+<link rel='stylesheet' href='https://unpkg.com/augmented-ui@2.0.0/augmented-ui.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.35.0/codemirror.css'>
+<link rel='stylesheet'
+   href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/addon/scroll/simplescrollbars.min.css'>
+<link rel="stylesheet" href="/static/css/login.css">
+<!-- partial:index.partial.html -->
+<code class="code-container">
+<div class="glow-container">
+   <div class="augs" data-augmented-ui></div>
+</div>
+<section class="augs bg" data-augmented-ui>
+   <button class="dots" onclick="changeMode(this)" title="(click to change) Current Mode: css"></button>
+   <input class="title" value="Interstellar Contract Desk" disabled>
+   <div class="highcontrast-dark code">
+      <div>
+         <h1>Register</h1>
+         <div class="login-form">
+
+
+<%= form_with url: register_path, method: :post do %>
+
+  <div class="form-group">
+    <label for="username">Username</label>
+    <%= text_field_tag :username, nil, id: "username", class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label for="password">Password</label>
+    <%= password_field_tag :password, nil, id: "password", class: "form-control" %>
+  </div>
+  <div style="display: grid;">
+
+  <a href="http://#{request.host_with_port}/login" style="font-size: 12px; text-align: initial; margin-bottom: 10px;">Already have an account? Login Here</a>
+         
+  <%= submit_tag "Register", class: "btn btn-primary", style:"background: #ad49e2;border: none;padding: 10px;border-radius: 8px;" , id: "loginBtn" %>
+</div>
+<% end %>
+    <% if flash[:error] %>
+      <p style="color: red;"><%= flash[:error] %></p>
+    <% end %>
+   </div>
+</section>
+</div>
+<!-- partial -->
+
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/codemirror.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/javascript/javascript.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/css/css.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/addon/scroll/simplescrollbars.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/markdown/markdown.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/htmlmixed/htmlmixed.min.js'></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/xml/xml.js'></script>
+
+
+
+

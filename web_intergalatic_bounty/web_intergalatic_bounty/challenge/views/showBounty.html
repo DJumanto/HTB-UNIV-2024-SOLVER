@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <title>Bounty Details</title>
+        <link rel="stylesheet" href="/static/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/static/css/home.css" />
+        <link rel="stylesheet" href="/static/css/star.css" />
+        <link rel="shortcut icon" href="/static/images/logo.webp" />
+        <link rel="stylesheet" href="/static/css/bounty.css" />
+    </head>
+
+    <body>
+        <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
+        <nav class="navbar navbar-expand-lg">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/add-bounty">Place Bounty</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    {% if user.role == "admin" %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/transmit"
+                            >Transmit Stellar Inquiry</a
+                        >
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Left Pane: Criminal Image and Basic Info -->
+                <div class="col-md-4">
+                    <div class="card" style="align-items: center">
+                        <img
+                            id="criminal-image"
+                            alt="Criminal Image"
+                            class="criminal-image"
+                        />
+                        <div class="card-body">
+                            <h2 id="target-name" class="card-title">
+                                Unknown Criminal
+                            </h2>
+                            <p class="card-text">
+                                Species:
+                                <span id="target-species" class="highlight"
+                                    >Unknown</span
+                                >
+                            </p>
+                            <p class="card-text">
+                                Alias:
+                                <span id="target-aliases" class="highlight"
+                                    >No known alias</span
+                                >
+                            </p>
+                            <p class="reward">
+                                Reward:
+                                <span id="reward-credits">0.00</span> Credits
+                            </p>
+                            <p class="card-text">
+                                Reward Items:
+                                <span id="reward-items" class="highlight"
+                                    >None</span
+                                >
+                            </p>
+                            {% if user.role == "admin" %}
+                            <a id="editBtn" href="/"
+                                ><button class="btn btn-primary">
+                                    Edit
+                                </button></a
+                            >
+                            {% endif %}
+                            <!-- Report button with event listener -->
+                            <button id="reportBtn" class="btn btn-primary">
+                                Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Pane: Detailed Info -->
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Last Known Location</h3>
+                            <p class="card-text">
+                                <span id="last-known-location" class="highlight"
+                                    >Unknown</span
+                                >
+                            </p>
+
+                            <h3 class="card-title">Crimes</h3>
+                            <p class="card-text highlight" id="crimes">None</p>
+
+                            <h3 class="card-title">Last Sighted</h3>
+                            <p class="card-text">
+                                <span id="last-sighted" class="highlight"
+                                    >Unknown</span
+                                >
+                            </p>
+
+                            <h3 class="card-title">Status</h3>
+                            <p class="card-text">
+                                <span id="status" class="highlight"
+                                    >UNKNOWN</span
+                                >
+                                - Armed and Dangerous
+                            </p>
+
+                            <h3 class="card-title">Risk Level</h3>
+                            <p class="card-text">
+                                <span id="risk-level" class="highlight"
+                                    >Unknown</span
+                                >
+                            </p>
+
+                            <h3 class="card-title">Required Equipment</h3>
+                            <p class="card-text">
+                                <span id="required-equipment" class="highlight"
+                                    >None</span
+                                >
+                            </p>
+
+                            <h3 class="card-title">Posted At</h3>
+                            <p class="card-text">
+                                <span id="posted-at" class="highlight"
+                                    >Unknown</span
+                                >
+                            </p>
+
+                            <h3 class="card-title">Issuer Information</h3>
+                            <p class="card-text">
+                                Issuer Name:
+                                <span id="issuer-name" class="highlight"
+                                    >Unknown</span
+                                >
+                            </p>
+                            <p class="card-text">
+                                Issuer Faction:
+                                <span id="issuer-faction" class="highlight"
+                                    >Unknown</span
+                                >
+                            </p>
+
+                            <h3 class="card-title">Claim Status</h3>
+                            <p class="card-text">
+                                Claimant ID:
+                                <span id="claimant-id" class="highlight"
+                                    >None</span
+                                >
+                            </p>
+                            <p class="card-text">
+                                Claimed At:
+                                <span id="claimed-at" class="highlight"
+                                    >Not claimed</span
+                                >
+                            </p>
+                            <p class="card-text">
+                                Completed At:
+                                <span id="completed-at" class="highlight"
+                                    >Not completed</span
+                                >
+                            </p>
+
+                            <h3 class="card-title">Additional Notes</h3>
+                            <p class="card-text" id="additional-notes">None</p>
+                        </div>
+                    </div>
+
+                    <!-- Bounty Description Section -->
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Bounty Description</h3>
+                            <div id="description">
+                                <p>No details available for this bounty.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // Function to get the ID from the URL
+            function getIdFromURL() {
+                const pathArray = window.location.pathname.split("/");
+                return pathArray[pathArray.length - 1];
+            }
+
+            // Function to fetch bounty data
+            async function fetchBountyData() {
+                const bountyId = getIdFromURL();
+                try {
+                    const response = await fetch(`/api/bounties/${bountyId}`);
+                    if (!response.ok)
+                        throw new Error("Failed to fetch bounty data");
+
+                    const bounty = await response.json();
+                    if (document.getElementById("editBtn") != undefined) {
+                        document.getElementById("editBtn").href =
+                            `/edit/${bounty.id}`;
+                    }
+
+                    // Removed href from Report button and added functionality in JS
+                    if (document.getElementById("reportBtn") != undefined) {
+                        document.getElementById("reportBtn").href =
+                            `/report/${bounty.id}`;
+                    }
+
+                    // Update HTML with fetched data
+                    document.getElementById("criminal-image").src =
+                        bounty.image || "/static/images/default.png";
+                    document.getElementById("target-name").textContent =
+                        bounty.target_name || "Unknown Criminal";
+                    document.getElementById("target-species").textContent =
+                        bounty.target_species || "Unknown";
+                    document.getElementById("target-aliases").textContent =
+                        bounty.target_aliases || "No known alias";
+                    document.getElementById("reward-credits").textContent =
+                        bounty.reward_credits || "0.00";
+                    document.getElementById("reward-items").textContent =
+                        bounty.reward_items || "None";
+                    document.getElementById("last-known-location").textContent =
+                        bounty.last_known_location || "Unknown";
+                    document.getElementById("crimes").textContent =
+                        bounty.crimes || "None";
+                    document.getElementById("last-sighted").textContent =
+                        bounty.last_sighted || "Unknown";
+                    document.getElementById("status").textContent =
+                        bounty.status
+                            ? `${bounty.status.toUpperCase()} - Armed and Dangerous`
+                            : "UNKNOWN";
+                    document.getElementById("risk-level").textContent =
+                        bounty.risk_level || "Unknown";
+                    document.getElementById("required-equipment").textContent =
+                        bounty.required_equipment || "None";
+                    document.getElementById("posted-at").textContent =
+                        bounty.posted_at || "Unknown";
+                    document.getElementById("issuer-name").textContent =
+                        bounty.issuer_name || "Unknown";
+                    document.getElementById("issuer-faction").textContent =
+                        bounty.issuer_faction || "Unknown";
+                    document.getElementById("claimant-id").textContent =
+                        bounty.claimant_id || "None";
+                    document.getElementById("claimed-at").textContent =
+                        bounty.claimed_at || "Not claimed";
+                    document.getElementById("completed-at").textContent =
+                        bounty.completed_at || "Not completed";
+                    document.getElementById("additional-notes").textContent =
+                        bounty.additional_notes || "None";
+                    document.getElementById("description").innerHTML =
+                        bounty.description ||
+                        "<p>No details available for this bounty.</p>";
+                } catch (error) {
+                    console.error("Error:", error);
+                }
+            }
+
+            // Function to report the bounty
+            async function reportBounty(bountyId) {
+                try {
+                    const response = await fetch(`/api/report/${bountyId}`, {
+                        method: "GET",
+                    });
+                    const result = await response.text();
+
+                    // Show alert with the response from the server
+                    alert(result);
+                } catch (error) {
+                    console.error("Error:", error);
+                    alert("Failed to report the bounty.");
+                }
+            }
+
+            // Add event listener for the report button
+            document
+                .getElementById("reportBtn")
+                .addEventListener("click", () => {
+                    const bountyId = getIdFromURL();
+                    reportBounty(bountyId);
+                });
+
+            // Run the fetchBountyData function when the page loads
+            window.onload = fetchBountyData;
+        </script>
+
+        <script src="/static/js/bootstrap.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    </body>
+</html>

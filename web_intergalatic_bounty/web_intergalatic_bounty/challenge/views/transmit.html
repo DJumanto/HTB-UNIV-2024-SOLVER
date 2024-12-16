@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <title>Transmit Stellar Inquiry</title>
+        <link rel="stylesheet" href="/static/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/static/css/home.css" />
+        <link rel="stylesheet" href="/static/css/star.css" />
+        <link rel="shortcut icon" href="/static/images/logo.webp" />
+        <style>
+            .transmit-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 80vh;
+            }
+
+            .transmit-input {
+                width: 70%;
+                padding: 10px;
+                font-size: 18px;
+                margin-bottom: 20px;
+            }
+
+            .output-code {
+                background-color: #1e1e1e;
+                color: #00ff00;
+                padding: 15px;
+                border-radius: 5px;
+                width: 70%;
+                height: 300px;
+                overflow-y: auto;
+                white-space: pre-wrap;
+                font-family: monospace;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
+        <nav class="navbar navbar-expand-lg">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/add-bounty">Place Bounty</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav ms-auto">
+                    {% if user.username == "admin" %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/transmit"
+                            >Transmit Stellar Inquiry</a
+                        >
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container-fluid">
+            <div class="transmit-container">
+                <input
+                    type="text"
+                    class="form-control transmit-input"
+                    id="stellarInput"
+                    placeholder="https://swapi.dev/api/planets/ enter galactic URL..."
+                />
+                <button id="transmitBtn" class="btn btn-primary">
+                    Transmit
+                </button>
+
+                <div id="output" class="output-code mt-4">
+                    Output of the Stellar Inquiry will be displayed here...
+                </div>
+            </div>
+        </div>
+
+        <script src="/static/js/bootstrap.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script>
+            document
+                .getElementById("transmitBtn")
+                .addEventListener("click", function () {
+                    const stellarInput =
+                        document.getElementById("stellarInput").value;
+
+                    fetch("/api/transmit", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ url: stellarInput }),
+                    })
+                        .then((response) => {
+                            if (!response.ok) {
+                                throw new Error("Failed to transmit inquiry.");
+                            }
+                            return response.json();
+                        })
+                        .then((data) => {
+                            document.getElementById("output").textContent =
+                                JSON.stringify(data, null, 2);
+                        })
+                        .catch((error) => {
+                            document.getElementById("output").textContent =
+                                error.message;
+                        });
+                });
+        </script>
+    </body>
+</html>

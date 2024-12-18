@@ -125,6 +125,7 @@ if __name__ == "__main__":
     # craft admin jwt
     jwks = api.craftJWT()
     print("[+] JWT crafted")
+    print(api.c.headers['Authorization'])
 
     _ = input(f"set this jwks to your server, also set the content type to application/json\n{jwks}\nPress enter to continue")
 
